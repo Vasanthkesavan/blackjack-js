@@ -1,24 +1,28 @@
 // List of classes
 
-var Player() = function() {
+class Player {
   // Give the default cash to start the game
 
   // Get the cards from the dealer
+
+  get hit() { return getHit.bind(this) }
+
+  get stand() { return getStand.bind(this) }
 };
 
-var Deck() = function() {
+class Deck {
   // Give the type of cards 2..9, A, J, Q, K
 
   // Give the suit type
 };
 
-var Shuffle() = function() {
+class Shuffle {
   // Get the set of decks from the Deck class
 
   // Do math.random to mix the card into random order
 };
 
-var Card() = function() {
+class Card {
   // Get the first card
 
   // return the value of a single card
@@ -26,7 +30,7 @@ var Card() = function() {
     // Can be called twice to return the first two cards by default
 };
 
-var Dealer() = function() {
+class Dealer {
   // Give  a new deck
 
     // Shuffle the above deck
@@ -38,7 +42,7 @@ var Dealer() = function() {
 
 };
 
-var Game() = function() {
+class Game {
   // Instantiate player class i.e one player
 
   // Instantiate a dealer
