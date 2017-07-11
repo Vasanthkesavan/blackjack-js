@@ -49,3 +49,33 @@ var Game() = function() {
 
     // if blackjack reset both player and dealer
 };
+
+// Functionality for the player
+
+// Psuedoclassical Instantiation
+
+Player.prototype.hit = function() {
+  // Check the score before hit
+
+  // Call the card and get a single card value
+
+  // Check if less than 21
+
+    // if, then ask for the decision again
+
+  // If greater, lose
+}
+
+Player.prototype.stand = function() {
+  // Don't take a card
+
+  // Dealer shows the second card
+
+  // Dealer takes a card(dealer's hit)
+
+  // Calculate the total of dealer and player
+
+  // If player > dealer, player BLACKJACK
+
+  // else dealer wins
+}
