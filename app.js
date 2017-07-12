@@ -38,11 +38,20 @@ class Player {
 
 class Deck {
   constructor() {
-
+    this.names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    this.suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
+    this.cards = [];
   }
-  // Give the type of cards 2..9, A, J, Q, K
 
-  // Give the suit type
+  makeValues() {
+    for(const [index, value] of this.suits.entries()) {
+      for(const [i, val] of this.names.entries()) {
+        this.cards.push(new Card(index+1, this.names[i], this.suits[index]));
+      }
+    }
+    return this.cards;
+  }
+
 };
 
 class Shuffle {
@@ -55,8 +64,10 @@ class Shuffle {
 };
 
 class Card {
-  constructor() {
-
+  constructor(value, name, suit) {
+    this.value = value;
+    this.name = name;
+    this.suit = suit;
   }
   // Get the first card
 
@@ -94,3 +105,7 @@ class Game {
 
     // if blackjack reset both player and dealer
 };
+
+var deck = new Deck();
+
+console.log(deck.makeValues());
