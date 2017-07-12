@@ -43,7 +43,7 @@ class Deck {
     this.cards = [];
   }
 
-  makeValues() {
+  makeCards() {
     for(const [index, value] of this.suits.entries()) {
       for(const [i, val] of this.names.entries()) {
         this.cards.push(new Card(index+1, this.names[i], this.suits[index]));
@@ -52,16 +52,21 @@ class Deck {
     return this.cards;
   }
 
-};
+  shuffleCards() {
+    const madeCards = this.makeCards();
+    let i = madeCards.length;
+    let j, temp;
 
-class Shuffle {
-  constructor() {
-
+    while(--i > 0) {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = madeCards[j];
+      madeCards[j] = madeCards[i];
+      madeCards[i] = temp;
+    }
+    return madeCards;
   }
-  // Get the set of decks from the Deck class
-
-  // Do math.random to mix the card into random order
 };
+
 
 class Card {
   constructor(value, name, suit) {
@@ -69,11 +74,6 @@ class Card {
     this.name = name;
     this.suit = suit;
   }
-  // Get the first card
-
-  // return the value of a single card
-
-    // Can be called twice to return the first two cards by default
 };
 
 class Dealer {
@@ -108,4 +108,4 @@ class Game {
 
 var deck = new Deck();
 
-console.log(deck.makeValues());
+console.log(deck.shuffleCards());
