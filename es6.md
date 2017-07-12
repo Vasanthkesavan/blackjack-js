@@ -21,3 +21,18 @@ class Dog {
   }
 }
 ```
+
+### for loop in older versions
+```
+for(var i = 0; i < array.length; i++) {
+  console.log(array[i]);
+}
+```
+
+### for-of loop in ES6
+
+```
+for(let value of array) {
+  console.log(value);
+}
+```
