@@ -22,6 +22,8 @@ class Dog {
 }
 ```
 
+## for loops
+
 ### for loop in older versions
 ```
 for(var i = 0; i < array.length; i++) {
