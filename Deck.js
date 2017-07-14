@@ -8,9 +8,9 @@ class Deck {
   }
 
   makeCards() {
-    for(const [index, value] of this.suits.entries()) {
-      for(const [i, val] of this.names.entries()) {
-        this.cards.push(new Card(index+1, this.names[i], this.suits[index]));
+    for(const [suit] of this.suits.entries()) {
+      for(const [name] of this.names.entries()) {
+        this.cards.push(new Card(this.names[name], this.suits[suit]));
       }
     }
     return this.cards;
