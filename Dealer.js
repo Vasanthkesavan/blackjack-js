@@ -1,3 +1,5 @@
+const Deck = require('./Deck.js');
+
 class Dealer {
   constructor() {
 

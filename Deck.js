@@ -30,3 +30,5 @@ class Deck {
     return madeCards;
   }
 };
+
+module.exports = Deck;
