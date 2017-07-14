@@ -4,22 +4,24 @@ const Player = require('./Player.js');
 
 class Game {
   constructor() {
+    this.toPlayer = [];
+    this.toDealer = [];
+    this.makeADealer;
+    this.makeAPlayer;
     this.makeADeck = new Deck();
   }
-  // Instantiate player class i.e one player
 
-  // Instantiate a dealer
-
-  // Set the default cash value for player
-
-  // Keep checking for blackjack
   play() {
-    //this.makeADeck = new Deck();
-    return this.makeADeck.shuffleCards();
-    // if blackjack reset both player and dealer
+    var allCards = this.makeADeck.shuffleCards();
+    var count = 0;
+
+    while(count < 4) {
+      if(count < 2) this.toPlayer.push(allCards[count]);
+      if(count >= 2) this.toDealer.push(allCards[count]);
+      count++;
+    }
+
+    this.makeADealer = new Dealer(this.toDealer);
+    this.makeAPlayer = new Player(this.toPlayer);
   }
 };
-
-var lol = new Game();
-
-console.log(lol.play())
