@@ -6,7 +6,11 @@ class Dealer {
   }
 
   hand() {
-    return this.props;
+    let cardVal = 0;
+    for(const [index, card] of this.props.entries()) {
+      cardVal += Number(card.value);
+    }
+    return cardVal;
   }
 
 };

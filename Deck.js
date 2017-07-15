@@ -2,15 +2,23 @@ const Card = require('./Card.js');
 
 class Deck {
   constructor() {
-    this.names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    this.names = ['ACE', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING'];
     this.suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
     this.cards = [];
   }
 
   makeCards() {
+    let val = 0;
     for(const [suit] of this.suits.entries()) {
       for(const [name] of this.names.entries()) {
-        this.cards.push(new Card(this.names[name], this.suits[suit]));
+        if(this.names[name] === 'JACK' || this.names[name] === 'QUEEN' || this.names[name] === 'KING') {
+          val = 10;
+        } else if(this.names[name] === 'ACE') {
+          val = 11;
+        } else {
+          val = this.names[name];
+        }
+        this.cards.push(new Card(val,this.names[name], this.suits[suit]));
       }
     }
     return this.cards;

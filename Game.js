@@ -16,12 +16,31 @@ class Game {
     var count = 0;
 
     while(count < 4) {
-      if(count < 2) this.toPlayer.push(allCards[count]);
-      if(count >= 2) this.toDealer.push(allCards[count]);
+      if(count < 2) this.toPlayer.push(allCards[0]);
+      if(count >= 2) this.toDealer.push(allCards[0]);
+      allCards.shift();
       count++;
     }
 
     this.makeADealer = new Dealer(this.toDealer);
     this.makeAPlayer = new Player(this.toPlayer);
   }
+
+  calculateScore() {
+    let dealerScore = 0;
+    let playerScore = 0;
+    // Initiate the game
+    this.play();
+
+    dealerScore = this.makeADealer.hand();
+    playerScore = this.makeAPlayer.hand();
+
+    if(dealerScore > playerScore) return 'Dealer wins';
+
+    return 'Player Wins';
+  }
 };
+
+var lol = new Game();
+
+console.log(lol.calculateScore())
