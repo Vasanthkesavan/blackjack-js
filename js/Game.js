@@ -25,9 +25,9 @@ class Game {
   calculateScore() {
     let dealerScore = 0;
     let playerScore = 0;
-
+    let play = this.play.bind(this);
     // Initiate the game
-    this.play();
+    play();
 
     dealerScore = this.makeADealer.hand();
     playerScore = this.makeAPlayer.hand();
@@ -39,4 +39,14 @@ class Game {
 
     return $('#gameResult').append('Player Wins');
   }
+
+  init() {
+    const start = this.calculateScore.bind(this);
+
+    $('#sButton').one('click', function() {
+      return start();
+    });
+
+  }
 };
+
