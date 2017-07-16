@@ -1,7 +1,3 @@
-const Deck = require('./Deck.js');
-const Dealer = require('./Dealer.js');
-const Player = require('./Player.js');
-
 class Game {
   constructor() {
     this.toPlayer = [];
@@ -29,18 +25,18 @@ class Game {
   calculateScore() {
     let dealerScore = 0;
     let playerScore = 0;
+
     // Initiate the game
     this.play();
 
     dealerScore = this.makeADealer.hand();
     playerScore = this.makeAPlayer.hand();
 
-    if(dealerScore > playerScore) return 'Dealer wins';
+    $('#dScore').append(dealerScore);
+    $('#pScore').append(playerScore);
 
-    return 'Player Wins';
+    if(dealerScore > playerScore) return $('#gameResult').append('Dealer Wins');
+
+    return $('#gameResult').append('Player Wins');
   }
 };
-
-var lol = new Game();
-
-console.log(lol.calculateScore())

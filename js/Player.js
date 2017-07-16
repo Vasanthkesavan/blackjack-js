@@ -1,5 +1,3 @@
-const Deck = require('./Deck.js');
-
 class Player {
   constructor(props) {
     this.props = props;
@@ -22,5 +20,3 @@ class Player {
   }
 
 };
-
-module.exports = Player;

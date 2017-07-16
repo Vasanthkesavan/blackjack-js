@@ -1,5 +1,3 @@
-const Card = require('./Card.js');
-
 class Deck {
   constructor() {
     this.names = ['ACE', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'JACK', 'QUEEN', 'KING'];
@@ -38,5 +36,3 @@ class Deck {
     return madeCards;
   }
 };
-
-module.exports = Deck;

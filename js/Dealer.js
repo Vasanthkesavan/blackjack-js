@@ -1,5 +1,3 @@
-const Deck = require('./Deck.js');
-
 class Dealer {
   constructor(props) {
     this.props = props;
@@ -13,6 +11,11 @@ class Dealer {
     return cardVal;
   }
 
-};
+  hit() {
 
-module.exports = Dealer;
+  }
+
+  stand() {
+
+  }
+};

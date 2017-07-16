@@ -5,5 +5,3 @@ class Card {
     this.suit = suit;
   }
 };
-
-module.exports = Card;
