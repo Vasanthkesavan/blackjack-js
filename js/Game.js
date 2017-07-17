@@ -35,17 +35,21 @@ class Game {
     $('#dScore').append(dealerScore);
     $('#pScore').append(playerScore);
 
-    if(dealerScore > playerScore) return $('#gameResult').append('Dealer Wins');
-
-    return $('#gameResult').append('Player Wins');
+    if(dealerScore > playerScore) {
+      responsiveVoice.speak('Dealer Wins');
+      return $('#gameResult').append('Dealer Wins');
+    } else {
+      responsiveVoice.speak('Player Wins');
+      return $('#gameResult').append('Player Wins');
+    }
   }
 
   init() {
     const start = this.calculateScore.bind(this);
-
-    $('#sButton').one('click', function() {
-      return start();
-    });
+    return start();
+    // $('#sButton').one('click', function() {
+    //   return start();
+    // });
 
   }
 };
