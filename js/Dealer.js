@@ -11,8 +11,9 @@ class Dealer {
     return cardVal;
   }
 
-  hit() {
-
+  hit(card) {
+    console.log(card);
+    //return this.cardVal = this.cardVal + Number(card.value);
   }
 
   stand() {

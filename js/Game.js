@@ -5,17 +5,18 @@ class Game {
     this.makeADealer;
     this.makeAPlayer;
     this.makeADeck = new Deck();
+    this.allCards = this.makeADeck.shuffleCards();
+    this.count = 0;
+    this.playerScore = 0;
+    this.dealerScore = 0;
   }
 
   play() {
-    var allCards = this.makeADeck.shuffleCards();
-    var count = 0;
-
-    while(count < 4) {
-      if(count < 2) this.toPlayer.push(allCards[0]);
-      if(count >= 2) this.toDealer.push(allCards[0]);
-      allCards.shift();
-      count++;
+    while(this.count < 4) {
+      if(this.count < 2) this.toPlayer.push(this.allCards[0]);
+      if(this.count >= 2) this.toDealer.push(this.allCards[0]);
+      this.allCards.shift();
+      this.count++;
     }
 
     this.makeADealer = new Dealer(this.toDealer);
@@ -23,34 +24,52 @@ class Game {
   }
 
   calculateScore() {
-    let dealerScore = 0;
-    let playerScore = 0;
     let play = this.play.bind(this);
     // Initiate the game
     play();
 
-    dealerScore = this.makeADealer.hand();
-    playerScore = this.makeAPlayer.hand();
+    this.dealerScore = this.makeADealer.hand();
+    this.playerScore = this.makeAPlayer.hand();
 
-    $('#dScore').append(dealerScore);
-    $('#pScore').append(playerScore);
+    $('#dScore').append(this.dealerScore);
+    $('#pScore').append(this.playerScore);
 
-    if(dealerScore > playerScore) {
-      responsiveVoice.speak('Dealer Wins');
+
+    if(this.playerScore > 21) {
       return $('#gameResult').append('Dealer Wins');
     } else {
-      responsiveVoice.speak('Player Wins');
-      return $('#gameResult').append('Player Wins');
+      if(this.dealerScore > 21) {
+        return $('#gameResult').append('Player Wins');
+      } else {
+          // Get user intention if hit
+          this.playerScore = this.makeAPlayer.hit(this.allCards[0]);
+          this.allCards.shift();
+          $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
+          // if stand
+
+
+          if(this.dealerScore <= 17) {
+            console.log('inside dealer score');
+            this.dealerScore = this.makeADealer.hit(this.allCards[0]);
+            this.allCards.shift();
+            $('#dScore').html("<div id='dScore'>" +'Dealer Score: '+this.dealerScore+ "</div>");
+            console.log('length of all cards', this.allCards.length)
+          }
+      }
     }
+
+    // if(dealerScore > playerScore) {
+    //   responsiveVoice.speak('Dealer Wins');
+    //   return $('#gameResult').append('Dealer Wins');
+    // } else {
+    //   responsiveVoice.speak('Player Wins');
+    //   return $('#gameResult').append('Player Wins');
+    // }
   }
 
   init() {
     const start = this.calculateScore.bind(this);
     return start();
-    // $('#sButton').one('click', function() {
-    //   return start();
-    // });
-
   }
 };
 
