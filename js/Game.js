@@ -36,24 +36,35 @@ class Game {
 
 
     if(this.playerScore > 21) {
+      responsiveVoice.speak('Dealer Wins');
       return $('#gameResult').append('Dealer Wins');
     } else {
       if(this.dealerScore > 21) {
+        responsiveVoice.speak('Player Wins');
         return $('#gameResult').append('Player Wins');
       } else {
           // Get user intention if hit
-          this.playerScore = this.makeAPlayer.hit(this.allCards[0]);
-          this.allCards.shift();
-          $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
-          // if stand
+          if(confirm("Do you want to hit?")) {
+            this.playerScore = this.makeAPlayer.hit(this.allCards[0]);
+            this.allCards.shift();
+            $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
+          } else {
+            this.playerScore = this.makeAPlayer.stand();
+            $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
+          }
 
 
-          if(this.dealerScore <= 17) {
+
+
+          if(this.dealerScore < 17) {
             console.log('inside dealer score');
             this.dealerScore = this.makeADealer.hit(this.allCards[0]);
             this.allCards.shift();
             $('#dScore').html("<div id='dScore'>" +'Dealer Score: '+this.dealerScore+ "</div>");
             console.log('length of all cards', this.allCards.length)
+          } else if(this.dealerScore >= 17) {
+            this.dealerScore = this.makeADealer.stand();
+            $('#dScore').html("<div id='dScore'>" +'Dealer Score: '+this.dealerScore+ "</div>");
           }
       }
     }

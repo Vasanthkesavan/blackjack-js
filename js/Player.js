@@ -18,5 +18,4 @@ class Player {
   stand() {
     return this.cardVal;
   }
-
 };
