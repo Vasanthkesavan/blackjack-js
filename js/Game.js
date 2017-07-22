@@ -23,6 +23,13 @@ class Game {
     this.makeAPlayer = new Player(this.toPlayer);
   }
 
+  voiceResponse() {
+    let hitFunc = function() {
+      responsiveVoice.speak('Do you want to hit?')
+    }
+    return hitFunc();
+  }
+
   calculateScore() {
     let play = this.play.bind(this);
     // Initiate the game
@@ -44,6 +51,9 @@ class Game {
         return $('#gameResult').append('Player Wins');
       } else {
           // Get user intention if hit
+
+          //responsiveVoice.speak('Do you want to hit?');
+          // setTimeout(), 15000
           if(confirm("Do you want to hit?")) {
             this.playerScore = this.makeAPlayer.hit(this.allCards[0]);
             this.allCards.shift();
