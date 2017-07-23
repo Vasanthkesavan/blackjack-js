@@ -30,6 +30,54 @@ class Game {
     return hitFunc();
   }
 
+  intentListener() {
+    var final_transcript = '';
+    if ('webkitSpeechRecognition' in window) {
+      var recognition = new webkitSpeechRecognition();
+      var final_transcript = '';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onresult = function( event ) {
+
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            final_transcript += event.results[i][0].transcript;
+          }
+        }
+        //document.getElementById( 'speech' ).value = final_transcript;
+
+      };
+      recognition.start();
+
+      setTimeout(function() {
+        if(final_transcript.length !== 0 ) sayItLoud.call(final_transcript);
+      },10000);
+    }
+
+    var sayItLoud = function() {
+    let val = this.valueOf();
+    console.log(val);
+      if(val === 'hit') {
+        return 'ACK HIT';
+      }
+    }
+  }
+
+  declareScore(playerScore, dealerScore) {
+    if((playerScore > dealerScore && playerScore <= 21) || dealerScore > 21) {
+      responsiveVoice.speak('Player Wins');
+      return $('#gameResult').append('Player Wins');
+    }
+    if((dealerScore > playerScore && dealerScore <= 21) || playerScore > 21) {
+      responsiveVoice.speak('Dealer Wins');
+      return $('#gameResult').append('Dealer Wins');
+    }
+    if((dealerScore === playerScore) && playerScore <= 21) {
+      confirm('Do you want to hit or stand ?')
+    }
+  }
+
   calculateScore() {
     let play = this.play.bind(this);
     // Initiate the game
@@ -38,9 +86,8 @@ class Game {
     this.dealerScore = this.makeADealer.hand();
     this.playerScore = this.makeAPlayer.hand();
 
-    $('#dScore').append(this.dealerScore);
-    $('#pScore').append(this.playerScore);
-
+    $('#dScore').html("<div id='dScore'>" +'Dealer Score: '+this.dealerScore+ "</div>");
+    $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
 
     if(this.playerScore > 21) {
       responsiveVoice.speak('Dealer Wins');
@@ -50,11 +97,12 @@ class Game {
         responsiveVoice.speak('Player Wins');
         return $('#gameResult').append('Player Wins');
       } else {
-          // Get user intention if hit
 
-          //responsiveVoice.speak('Do you want to hit?');
-          // setTimeout(), 15000
-          if(confirm("Do you want to hit?")) {
+
+          this.voiceResponse();
+          let intent = this.intentListener();
+
+          if(intent === 'ACK HIT') {
             this.playerScore = this.makeAPlayer.hit(this.allCards[0]);
             this.allCards.shift();
             $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
@@ -62,9 +110,6 @@ class Game {
             this.playerScore = this.makeAPlayer.stand();
             $('#pScore').html("<div id='pScore'>" +'Player Score: '+this.playerScore+ "</div>");
           }
-
-
-
 
           if(this.dealerScore < 17) {
             console.log('inside dealer score');
@@ -76,6 +121,7 @@ class Game {
             this.dealerScore = this.makeADealer.stand();
             $('#dScore').html("<div id='dScore'>" +'Dealer Score: '+this.dealerScore+ "</div>");
           }
+          this.declareScore(this.playerScore, this.dealerScore);
       }
     }
 

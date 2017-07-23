@@ -77,3 +77,10 @@
       border-bottom: 0;
     }
   }
+
+  .title {
+    text-align: center;
+    font-size: 50px;
+  }
+
+

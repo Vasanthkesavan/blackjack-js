@@ -31,5 +31,4 @@ var sayItLoud = function() {
     var newGame = new Game();
     newGame.init();
   }
-
 }
